@@ -1,0 +1,11 @@
+version: '3'
+#
+# hi :)
+#
+
+tasks:
+  migration-up:
+    cmds:
+      - migrate -database postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}?sslmode=disable -path internal/repositories/migrations up
+
+

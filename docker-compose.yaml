@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  postgresql:
+    image: postgres:13.4-alpine
+    environment:
+      POSTGRES_USER:          dear-user
+      POSTGRES_PASSWORD:      dear-passwd
+      POSTGRES_HOST:          dear-postgresql
+      POSTGRES_PORT:          5432
+      POSTGRES_DB:            dear-app
+      PGDATA:                 /tmp-tests
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432"
+
+  backend:
+    build:
+      context: .
+    container_name: dear-container
+    env_file:
+      - .env
+    depends_on:
+      - postgresql
+    command: ["sh", "-c", "sleep infinity"]
+
+volumes:
+  postgresql-data:
+
